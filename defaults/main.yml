@@ -1,0 +1,6 @@
+---
+bash:
+  user: # normal user, "root", "global"
+  files:
+    cp: [] # list of dicts
+    rm: [] # list

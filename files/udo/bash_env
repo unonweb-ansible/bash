@@ -1,0 +1,110 @@
+LOG=0
+
+function addToPath { # ${PATH_ADD[@]}
+
+	for p in "${@}"; do
+		# check
+        if [[ -d "${p}" ]] && [[ "${PATH}" != *":${p}:"* ]] ; then
+			if ((LOG)); then
+				echo "Adding to PATH: ${p} ..."
+			fi
+			# add
+			PATH="${p}:${PATH}"
+        fi
+    done
+    
+	export PATH
+
+}
+
+function removeFromPath { # ${PATH_REMOVE[@]}
+
+   for p in "${@}"; do
+        # check
+        if [[ "${PATH}" == *":${p}:"* ]]; then
+			if ((LOG)); then
+				echo "Removing from PATH: ${p} ..."
+			fi
+            # remove
+            PATH="${PATH//${p}/}"
+        fi
+    done
+}
+
+function addXDGDataDirs { # ${XDG_DATA_DIRS_ADD[@]}
+
+    for p in "${@}"; do
+		# check
+        if [[ -d "${p}" ]] && [[ "${XDG_DATA_DIRS}" != *":${p}:"* ]] ; then
+			if ((LOG)); then
+				echo "Adding to XDG_DATA_DIRS: ${p} ..."
+			fi
+			# add
+            XDG_DATA_DIRS="${p}:${XDG_DATA_DIRS}"
+        fi
+    done
+
+}
+
+function main {
+
+	# XDG
+	# ---
+
+	local XDG_DATA_DIRS_ADD=(
+		"${HOME}/.local/share/flatpak/exports/share"
+	)
+
+	export XDG_DATA_HOME="${HOME}/.local/share"
+	export XDG_CONFIG_HOME="${HOME}/.config"
+	export XDG_STATE_HOME="${HOME}/.local/state"
+	export XDG_CACHE_HOME="${HOME}/.cache"
+
+	addXDGDataDirs ${XDG_DATA_DIRS_ADD[@]}
+	export XDG_DATA_DIRS
+
+	# PATH
+	# ----
+
+	local PATH_ADD=(
+		"/usr/local/sbin"
+		"/usr/sbin:/sbin"
+		"${HOME}/bin"
+		"${HOME}/.local/bin"
+		"/var/lib/flatpak/exports/share"
+		"${HOME}/.local/share/flatpak/exports/share/applications"
+	)
+
+	local PATH_REMOVE=(
+		"/usr/local/games:"
+		":/usr/local/games"
+		"/usr/games:"
+		":/usr/games"
+	)
+
+	addToPath ${PATH_ADD[@]}
+	removeFromPath ${PATH_REMOVE[@]}
+	
+	export PATH
+	
+
+	# OTHER VARS
+	# ----------
+
+	export EDITOR=nano
+
+	# ALIASES
+	# -------
+
+	alias ls="ls --color=auto"
+	alias ll="ls --color=auto -la"
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias ip="ip -c"
+	alias sudo='sudo ' # 
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
+}
+
+main

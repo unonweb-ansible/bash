@@ -1,0 +1,42 @@
+---
+# NOTES
+# -----
+# We can't use bash.files.copy because somehow it conflicts with an ansible builtin method
+
+- name: bash role
+  tags:
+    - bash
+  block:
+
+  # check
+  - name: Check vars for bash role
+    ansible.builtin.assert:
+      that:
+      - bash.user != None
+
+  # bash.files.cp
+  - when: bash.files.cp | length > 0
+    block:
+
+    # cp files
+    - name: Copy files for user {{ bash.user }}
+      loop: "{{ bash.files.cp }}"
+      become: true
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+        owner: "{{ bash.user }}"
+        group: "{{ bash.user }}"
+        mode: u=rw,g=,o=
+
+  # bash.files.rm
+  - when: bash.files.rm | length > 0
+    block:
+
+    # rm files
+    - name: Remove files for user {{ bash.user }}
+      loop: "{{ bash.files.rm }}"
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
