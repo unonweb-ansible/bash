@@ -1,28 +1,13 @@
 # NOTES
 # -----
-# Executed For: Login shells. 
-# The system executes the file when you log in to your session.
-# For example, when you log in to your system via SSH or when you open a terminal tab or session in a graphical user interface for the first time after logging in.
-
 # Purpose: used to execute commands and set environment variables that should be in place for the entire duration of the login session.
 # This includes setting the PATH environment variable, environment variables required for installed software, and running scripts that should only be executed once at the start of a login session.
-# Usage Example: If you set an environment variable, it will be set for all subsequent terminal sessions.
+# If you set an environment variable, it will be set for all subsequent terminal sessions.
 
 # Called by login shells:
 # - sudo -i
 # - bash -l
 # - ssh frida@127.0.0.1 
-
-# Not called by:
-# - bash
-# - sudo
-
-# ORDER
-# -----
-# /etc/bash.bashrc
-# /etc/bash.aliases
-# $HOME/.bashrc
-# $HOME/.bash_aliases
 
 # UMASK
 # -----
@@ -38,13 +23,4 @@ if [ -n "${BASH_VERSION}" ]; then # if running bash
     if [ -f "${HOME}/.bashrc" ]; then # include .bashrc if it exists
 	    . "${HOME}/.bashrc"
     fi
-fi
-
-
-
-# ENV
-# ---
-
-if [ -f ~/.bash_env ]; then
-    . ~/.bash_env
 fi
