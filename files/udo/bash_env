@@ -1,5 +1,3 @@
-LOG=0
-
 function addToPath { # ${PATH_ADD[@]}
 
 	for p in "${@}"; do
@@ -47,6 +45,8 @@ function addXDGDataDirs { # ${XDG_DATA_DIRS_ADD[@]}
 }
 
 function main {
+
+	LOG=0
 
 	# XDG
 	# ---

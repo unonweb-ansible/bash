@@ -4,3 +4,7 @@ bash:
   files:
     cp: [] # list of dicts
     rm: [] # list
+
+# bash.files.cp
+#   src:
+#   dst:

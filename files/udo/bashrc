@@ -1,16 +1,22 @@
 # NOTES
 # -----
-# Executed For: Non-login interactive shells. 
-# Runs whenever you open a new terminal window in your graphical user interface or run a new shell interactively.
-# Purpose: Because it’s executed for non-login shells, .bashrc is typically used for configurations that must be applied to every interactive session.
-# Often used for tasks such as: setting command aliases, defining shell functions, and setting shell-specific options (like prompt appearance and history behavior).
-# Not called by login shells:
-# - sudo -i
+
+# Purpose:
+# Typically used for configurations that must be applied to every interactive session
+# - command aliases
+# - defining shell functions
+# - setting shell-specific options (like prompt appearance and history behavior)
+
+# Executed For: Non-login interactive shells
+# - whenever you open a new terminal window
+# - path/to/script.sh
+# - bash path/to/script.sh
+
 # CHECK IF INTERACTIVE
 # --------------------
 
 # If not running interactively, don't do anything
-case $- in
+case ${-} in
     *i*) 
 		;; # If the shell is interactive, do nothing (no-op).
       *)
