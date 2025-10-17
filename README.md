@@ -2,6 +2,8 @@
 
 ## interactive login shell
 
+A login shell is invoked if a user logs in locally or via SSH or if bash is called with --login.
+
 When invoked as an interactive login shell:
 
 1. `/etc/profile`
