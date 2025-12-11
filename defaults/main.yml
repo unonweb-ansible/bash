@@ -1,10 +1,4 @@
 ---
-bash:
-  user: # normal user, "root", "global"
-  files:
-    cp: [] # list of dicts
-    rm: [] # list
-
-# bash.files.cp
-#   src:
-#   dst:
+bash_user:
+bash_files_copy: [] # [ src: string, dst: string ]
+bash_files_remove: [] # list
