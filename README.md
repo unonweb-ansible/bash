@@ -1,4 +1,5 @@
-# BASH FILES
+NOTES
+=====
 
 ## interactive login shell
 
