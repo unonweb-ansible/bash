@@ -20,7 +20,7 @@
       ansible.builtin.assert:
         that:
         - item.src is defined
-        - item.dst
+        - item.dst is defined
 
     # cp files
     - name: Copy files for user {{ bash_user }}
